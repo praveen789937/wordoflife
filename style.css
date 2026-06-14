@@ -443,3 +443,7 @@ footer {
     background-color: #fff5f5;
     color: #c53030;
 }
+/* Hide all application views by default for the login-first flow */
+#readings-section, #homily-section, #coordinator-dashboard, #admin-panel, header {
+    display: none;
+}

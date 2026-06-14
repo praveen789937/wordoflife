@@ -1,41 +1,45 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. Hide the Dashboard and Admin Panel by default when the page loads
+    // Grab all the sections of our website
+    const loginSection = document.getElementById("login-section");
+    const mainHeader = document.querySelector("header");
+    const readingsSection = document.getElementById("readings-section");
+    const homilySection = document.getElementById("homily-section");
     const coordinatorDashboard = document.getElementById("coordinator-dashboard");
     const adminPanel = document.getElementById("admin-panel");
     
-    if (coordinatorDashboard) coordinatorDashboard.style.display = "none";
-    if (adminPanel) adminPanel.style.display = "none";
-
-    // 2. Setup Login Logic
     const loginButton = document.querySelector(".login-submit-btn");
-    
+
     if (loginButton) {
         loginButton.addEventListener("click", function() {
             const selectedRole = document.getElementById("user-role").value;
             
-            // Reset views first
-            coordinatorDashboard.style.display = "none";
-            adminPanel.style.display = "none";
+            // 1. Hide the login page instantly
+            loginSection.style.display = "none";
+            
+            // 2. Show the top navigation header bar
+            mainHeader.style.display = "flex";
 
+            // 3. Direct the user to their specific options based on their role
             if (selectedRole === "layperson") {
-                alert("ಲಾಗಿನ್ ಯಶಸ್ವಿಯಾಗಿದೆ! ನೀವು ಸಾರ್ವಜನಿಕ ವಾಚನಗಳನ್ನು ನೋಡಬಹುದು. (Login successful as Layperson!)");
-                // Smooth scroll up to the readings section
-                document.getElementById("readings-section").scrollIntoView({ behavior: 'smooth' });
+                // Laypersons only see Today's Readings & Sunday Homilies
+                readingsSection.style.display = "block";
+                homilySection.style.display = "block";
+                alert("ಲಾಗಿನ್ ಯಶಸ್ವಿಯಾಗಿದೆ! ಸಾರ್ವಜನಿಕ ವಾಚನಗಳ ಪುಟಕ್ಕೆ ಸ್ವಾಗತ.");
             } 
             else if (selectedRole === "coordinator") {
-                alert("ಸ್ವಾಗತ ಸಂಯೋಜಕರೇ! ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ. (Welcome Coordinator! Dashboard activated.)");
+                // Coordinators only see their input form dashboard
                 coordinatorDashboard.style.display = "block";
-                coordinatorDashboard.scrollIntoView({ behavior: 'smooth' });
+                alert("ಸ್ವಾಗತ ಸಂಯೋಜಕರೇ! ನಿಮ್ಮ ಅಪ್ಲೋಡ್ ಪುಟ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ.");
             } 
             else if (selectedRole === "admin") {
-                alert("ಸ್ವಾಗತ ಮುಖ್ಯಸ್ಥರೇ! ನಿಯಂತ್ರಣ ಫಲಕ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ. (Welcome Admin! Control Panel activated.)");
+                // Admins see the full management dashboard
                 adminPanel.style.display = "block";
-                adminPanel.scrollIntoView({ behavior: 'smooth' });
+                alert("ಸ್ವಾಗತ ಮುಖ್ಯಸ್ಥರೇ! ನಿಯಂತ್ರಣ ಫಲಕ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ.");
             }
         });
     }
 
-    // 3. Simple Interactive Mock Audio Player
+    // Interactive Audio Player Logic
     const playBtn = document.querySelector(".play-btn");
     const progressBar = document.querySelector(".progress-bar");
     const timeDisplay = document.querySelector(".time-display");
@@ -44,8 +48,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (playBtn) {
         playBtn.addEventListener("click", function() {
             if (!isPlaying) {
-                playBtn.innerHTML = "⏸ ಪಾಸ್ (Pause)";
-                progressBar.style.width = "65%"; // Simulate audio loading
+                playBtn.innerHTML = "制造 パಸ್ (Pause)";
+                progressBar.style.width = "65%"; 
                 timeDisplay.innerHTML = "18:42 / 30:00";
                 isPlaying = true;
             } else {
